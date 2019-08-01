@@ -3,7 +3,6 @@ pipeline {
     stages {
         stage('clone repo') { 
             steps {
-                sh "rm -rf mev_homework-3"
                 sh "git clone https://github.com/Valdemar23/mev_homework-3.git" 
             }
         }
