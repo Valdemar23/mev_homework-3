@@ -1,14 +1,29 @@
 pipeline {
     agent any 
     stages {
-        stage('clone repo') { 
+        stage('---clone repo---') { 
             steps {
-                sh "git clone https://github.com/Valdemar23/mev_homework-3.git" 
+                sh "git clone https://github.com/Valdemar23/ukrainofobia.git" 
             }
         }
-        stage('write hello world to the file') { 
+        stage('---cd repo---') { 
             steps {
-                sh "echo 'hello world' >> mev_homework-3/empty-file.txt"  
+                sh "cd ukrainofobia" 
+            }
+        }
+        stage('---applied plugin---') {
+            steps {
+                sh "mvn -N io.takari:maven:wrapper"
+            }
+        }
+        stage('---package---') { 
+            steps {
+                sh "./mvnw verify" #or "./mvnw package"
+            }
+        }
+        stage('deployment project') { 
+            steps {
+                sh "java -jar ./target/yoda-master-jedi-1.0-SNAPSHOT.jar"  
             }
         }
     }
